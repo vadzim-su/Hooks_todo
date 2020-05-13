@@ -9,8 +9,10 @@ function App() {
   const [taskTitle, setTaskTitle] = useState("");
 
   useEffect(() => {
-    const elem = localStorage.getItem("tasks") || [];
-    setTasks(JSON.parse(elem));
+    const elem = localStorage.getItem("tasks");
+    if (elem) {
+      setTasks(JSON.parse(elem));
+    }
   }, []);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ function App() {
   }, [tasks]);
 
   const addNewTodo = (e) => {
-    setTaskTitle([e.target.value]);
+    setTaskTitle(e.target.value);
   };
 
   const addTask = (e) => {
@@ -32,7 +34,6 @@ function App() {
         completed: false,
       },
     ]);
-
     setTaskTitle("");
   };
 
@@ -60,7 +61,7 @@ function App() {
       </form>
 
       <span className="count">
-        There {tasks.length <= 1 ? " is " : " are "}
+        There {tasks.length <= 1 && tasks.length !== 0 ? " is " : " are "}
         {tasks.length ? tasks.length : " no "}
         {tasks.length === 1 ? " task " : " tasks "}
       </span>
