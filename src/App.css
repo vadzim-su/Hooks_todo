@@ -72,19 +72,19 @@ h1 {
   line-height: 1;
 }
 
-button.button {
+.buttonComplete {
   border-radius: 5px;
-  background-color: #adb5eb;
+  border: none;
   outline-style: none;
   font-size: 14px;
   border: none;
 }
 
-button.button:hover {
+.buttonComplete:hover {
   opacity: 0.7;
 }
 
-button.button:active {
+.buttonComplete:active {
   opacity: 1;
 }
 
@@ -95,4 +95,8 @@ button.button:active {
 
 .completed span {
   text-decoration: line-through;
+}
+
+.completed {
+  background-color: rgb(171, 206, 174);
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
-import "./../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 import TaskList from "./TaskList";
 
 function App() {
@@ -17,6 +16,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+
+  const addNewTodo = (e) => {
+    setTaskTitle([e.target.value]);
+  };
 
   const addTask = (e) => {
     e.preventDefault();
@@ -46,20 +49,20 @@ function App() {
             type="text"
             className="form-control"
             value={taskTitle}
-            onChange={(e) => setTaskTitle(e.target.value)}
+            onChange={addNewTodo}
             required
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-outline-success">
           Add task
         </button>
       </form>
 
       <span className="count">
-        There {tasks.length <= 1 ? "is" : "are"}{" "}
-        {tasks.length ? tasks.length : "no"}{" "}
-        {tasks.length === 1 ? "task" : "tasks"}
+        There {tasks.length <= 1 ? " is " : " are "}
+        {tasks.length ? tasks.length : " no "}
+        {tasks.length === 1 ? " task " : " tasks "}
       </span>
 
       <TaskList tasks={tasks} />
