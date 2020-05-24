@@ -10,6 +10,7 @@ function App() {
 
   useEffect(() => {
     const elem = localStorage.getItem("tasks");
+
     if (elem) {
       setTasks(JSON.parse(elem));
     }
@@ -18,6 +19,25 @@ function App() {
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+
+  const changeCheck = (id, value) => {
+    let changedLocalStorage = JSON.parse(localStorage.getItem("tasks")).map(
+      (task) => {
+        if (task && task.id === id) {
+          task.completed = value;
+        }
+        return task;
+      }
+    );
+    setTasks(changedLocalStorage);
+  };
+
+  const enrichTasks = (tasks) => {
+    let modifiedTasks = tasks.map((task) => {
+      return Object.assign({}, task, { onClick: changeCheck });
+    });
+    return modifiedTasks;
+  };
 
   const addNewTodo = (e) => {
     setTaskTitle(e.target.value);
@@ -61,12 +81,12 @@ function App() {
       </form>
 
       <span className="count">
-        There {tasks.length <= 1 && tasks.length !== 0 ? " is " : " are "}
+        There {tasks.length <= 1 && tasks ? " is " : " are "}
         {tasks.length ? tasks.length : " no "}
         {tasks.length === 1 ? " task " : " tasks "}
       </span>
 
-      <TaskList tasks={tasks} />
+      <TaskList tasks={enrichTasks(tasks)} />
     </div>
   );
 }

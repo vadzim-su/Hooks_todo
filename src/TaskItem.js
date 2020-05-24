@@ -1,24 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 
-function TaskItem({ title, id, completed }) {
-  const [checked, setChecked] = useState(completed);
-
-  const completeTodo = () => {
-    setChecked(!checked);
+function TaskItem({ title, id, completed, onClick }) {
+  const changeClick = () => {
+    onClick(id, !completed);
   };
 
   return (
-    <li className={checked ? "list completed" : "list"}>
+    <li className={completed ? "list completed" : "list"}>
       <p className="task">
         <span>
           {id + 1 + ". "}
           {title}
         </span>
-        <button onClick={completeTodo} className="buttonComplete">
+        <button onClick={changeClick} className="buttonComplete">
           Complete
         </button>
       </p>
     </li>
   );
 }
+
 export default TaskItem;
